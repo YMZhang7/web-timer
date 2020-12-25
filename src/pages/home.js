@@ -6,7 +6,7 @@ function Home(){
     return (
         <BackgroundContainer>
             <BackgroundBlur>
-                <TimerBox />
+                <TimerBox time="10"/>
             </BackgroundBlur>
         </BackgroundContainer>
     );

@@ -15,10 +15,18 @@ export const TimerContainer = styled.div`
 `;
 
 export const TimerCircle = (props) => {
+    let hour = Math.floor(props.timeRemaining / 3600);
+    let hourStr = hour.toString().length === 1 ? '0' + hour.toString() : hour.toString();
+    let min = Math.floor(props.timeRemaining % 3600 / 60);
+    let minStr = min.toString().length === 1 ? '0' + min.toString() : min.toString();
+    let sec = props.timeRemaining % 3600 % 60;
+    let secStr = sec.toString().length === 1 ? '0' + sec.toString() : sec.toString();
+    let d1 = 126;
+    let d2 = 90;
     return (
         <BottomCircle>
-            <MiddleCircle>
-                <TopCircle />
+            <MiddleCircle d1={d1} d2={d2}>
+                <TopCircle>{hourStr + ":" + minStr + ":" + secStr}</TopCircle>
             </MiddleCircle>
         </BottomCircle>
     );
@@ -33,8 +41,8 @@ const BottomCircle = styled.div`
 `;
 
 const MiddleCircle = styled.div`
-    background: linear-gradient(126deg, transparent 50%, white 50%),
-    linear-gradient(90deg, white 50%, transparent 50%);
+    background: linear-gradient(${props => props.d1 + "deg"}, transparent 50%, white 50%),
+    linear-gradient(${props => props.d2 + "deg"}, white 50%, transparent 50%);
     border-radius: 50%;
     width: 180px;
     height: 180px;
@@ -50,17 +58,22 @@ const TopCircle = styled.div`
     border-radius: 50%;
     background-color: white;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
 `;
 
-export const TimerButtons = () => {
+export const TimerButtons = (props) => {
     return (
-        <TimerButtonContainer>
+        <TimerButtonContainer onClick={props.onClick}>
             <AiFillCaretRight size="20px" />
         </TimerButtonContainer>
     );
 }
 
-const TimerButtonContainer = styled.div`
+const TimerButtonContainer = styled.button`
     width: 50px;
     height: 50px;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
@@ -72,4 +85,6 @@ const TimerButtonContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    outline: none;
+    border: none;
 `;
