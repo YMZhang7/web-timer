@@ -15,8 +15,11 @@ export const BackgroundBlur = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    /* flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    grid-template-columns: repeat(5, 1fr);
+    padding: 20px;
+    column-gap: 10px;
 `;

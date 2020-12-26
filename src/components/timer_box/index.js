@@ -66,7 +66,9 @@ function TimerBox (props){
 
     return (
         <TimerContainer>
-            <div style={{width: "200px", height: "200px"}}>
+            <p>{props.description}</p>
+            <div style={{height: "20px"}}></div>
+            <div style={{width: "180px", height: "180px"}}>
                 <CircularProgressbar 
                     value={parseInt(timeRemaining)/parseInt(totalTime) * 100} 
                     text={getTime()}
@@ -75,13 +77,14 @@ function TimerBox (props){
                         strokeLinecap: 'butt',
                         textSize: '15px',
                         pathTransitionDuration: 0.5,
-                        pathColor: "rgba(233, 222, 244, 0.8)",
+                        pathColor: "rgb(185,170,199)",
                         textColor: 'rgb(112,112,112)',
                         trailColor: 'transparent',
                         backgroundColor: 'red',
                     })}
                 />
             </div>
+            <div style={{height: "40px"}}></div>
             {currentState === timerInitialState && <TimerInitialButton onClick={startTimer} />}
             {currentState === timerRunningState && <TimerRunningButtons pauseEvent={pauseTimer} restartEvent={restartTimer} />}
             {currentState === timerPausedState && <TimerPausedButtons startEvent={startTimer} restartEvent={restartTimer} />}

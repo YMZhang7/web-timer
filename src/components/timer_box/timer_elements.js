@@ -4,14 +4,18 @@ import {AiFillCaretRight, AiOutlinePause, AiOutlineReload} from "react-icons/ai"
 
 export const TimerContainer = styled.div`
     width: 250px;
-    height: 350px;
-    background-color: rgba(255,255,255,0.78);
+    height: 400px;
+    background-color: rgba(255,255,255,0.6);
     border-radius: 20px;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-bottom: 20px;
+    &:hover {
+        background-color: rgba(255,255,255, 0.8);
+    }
 `;
 
 export const TimerInitialButton = (props) => {
@@ -61,7 +65,6 @@ const TimerButtonContainer = styled.button`
     box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
     background-color: white;
     border-radius: 20px;
-    margin-top: 50px;
     font-size: 10px;
     display: flex;
     flex-direction: column;
