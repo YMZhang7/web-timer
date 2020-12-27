@@ -1,31 +1,65 @@
 import React, {useState} from "react";
-import {BackgroundContainer, BackgroundBlur} from "../components/homepage_section/homepage_elements"
+import {BackgroundContainer, BackgroundBlur, TimersGrid} from "../components/homepage_section/homepage_elements"
 import TimerBox from "../components/timer_box";
 import AddNewTimerBox from "../components/add_new_timer_box";
 import timers from "../database";
 
 function Home(){
+
+    const deleteTimer = (id) => {
+        setAllTimers((prevState) => {
+            for (let i = 0; i < prevState.length; i++){
+                console.log("id" + id);
+                if (prevState[i].id == id){
+                    console.log("delete!");
+                    prevState.splice(i, 1);
+                    break;
+                }
+            }
+            console.log(prevState);
+            return prevState;
+        });
+        setTimerBoxes(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} onEdit={editTimer} time={timer.time} description={timer.description}/>));
+    }
+
+    const editTimer = (newTimer) => {
+        setAllTimers((prevState) => {
+            for (let i = 0; i < prevState.length; i++){
+                if (prevState[i].id == newTimer.id){
+                    prevState[i] = newTimer;
+                    break;
+                }
+            }
+            return prevState;
+        });
+        setTimerBoxes(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} time={timer.time} description={timer.description}/>));
+    }
+
     const [allTimers, setAllTimers] = useState(timers);
-    let currId = timers.length + 1;
-    const [timerBoxes, setTimerBoxes] = useState(allTimers.map((timer) => <TimerBox key={timer.id} time={timer.time} description={timer.description}/>));
+    const [currId, setCurrId] = useState(allTimers.length + 1);
+    const [timerBoxes, setTimerBoxes] = useState(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} onEdit={editTimer} time={timer.time} description={timer.description}/>));
+
+    
 
     const addTimer = (newTimer) => {
         setAllTimers((prevState) => {
-            newTimer.id = currId;
             prevState.push(newTimer);
             console.log("id: "+ newTimer.id);
             return prevState;
         });
-        setTimerBoxes(allTimers.map((timer) => <TimerBox key={timer.id} time={timer.time} description={timer.description}/>));
-        console.log("length: "+allTimers.length);
-        console.log(allTimers);
+        setTimerBoxes(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} onEdit={editTimer} time={timer.time} description={timer.description}/>));
+        setCurrId(prev => prev+1);
     }
+
+    
 
     return (
         <BackgroundContainer>
             <BackgroundBlur>
-                {timerBoxes}
-                <AddNewTimerBox onSubmit={addTimer} newId={allTimers.length+1}></AddNewTimerBox>
+                <TimersGrid>
+                    {timerBoxes}
+                    <AddNewTimerBox onSubmit={addTimer} newId={currId} ></AddNewTimerBox>
+                </TimersGrid>
             </BackgroundBlur>
         </BackgroundContainer>
     );

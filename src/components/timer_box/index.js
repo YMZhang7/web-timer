@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {TimerContainer, TimerInitialButton, TimerRunningButtons, TimerPausedButtons, TimerCompletedButton} from "./timer_elements";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import {AiFillMedicineBox, AiOutlineMore, AiFillDelete, AiFillEdit} from "react-icons/ai";
+import Dropdown from 'react-bootstrap/Dropdown'
+import AddNewTimerBox from "../add_new_timer_box";
 
 function TimerBox (props){
     // **===== Timer state management ===**
@@ -16,6 +19,7 @@ function TimerBox (props){
     const [timeRemaining, setTimeRemaining] = useState(parseInt(totalTime));
     const [currentState, setTimerState] = useState(timerInitialState);
     const [timer, setTimer] = useState(0);
+    const [isEditting, setIsEditting] = useState(false);
     // == End of React State Management ===
 
 
@@ -62,10 +66,66 @@ function TimerBox (props){
         return hourStr + ":" + minStr + ":" + secStr;
     }
 
-    
+    const deleteTimer = () => {
+        props.onDelete(props.id);
+    }
+
+    const editTimer = () => {
+        
+    }
 
     return (
-        <TimerContainer>
+        <div>
+        { isEditting ? <AddNewTimerBox onSubmit={editTimer} newId={props.id} /> : <TimerContainer>
+            <div style={{
+                position: "absolute",
+                top: "15px",
+                right: "20px",
+                zIndex: "999",
+            }}>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic" style={{
+                        outline: "none",
+                        border: "none",
+                        width: "30px",
+                        height: "30px",
+                        backgroundColor: "transparent",
+                    }}>
+                        <AiOutlineMore size="30px"/>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item  
+                            style={{
+                                backgroundColor: "white",
+                                width: "120px",
+                                height: "30px",
+                                color: "red",
+                                border: "none",
+                                borderBottom: "1px solid rgba(0,0,0,0.2)",
+                                borderRadius: "5px",
+                                boxShadow: "0px 5px 5px rgba(0,0,0,0.2)",
+                                outline: "none"
+                            }}
+                            as="button"
+                            onClick={deleteTimer}
+                        ><AiFillDelete style={{verticalAlign: "-2px"}}/> DELETE</Dropdown.Item>
+                        <Dropdown.Item 
+                            style={{
+                                backgroundColor: "white",
+                                width: "120px",
+                                height: "30px",
+                                color: "green",
+                                border: "none",
+                                borderRadius: "5px",
+                                boxShadow: "0px 5px 5px rgba(0,0,0,0.2)",
+                                outline: "none"
+                            }}
+                            as="button"
+                        ><AiFillEdit style={{verticalAlign: "-2px"}}/> EDIT</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+            
             <p>{props.description}</p>
             <div style={{height: "20px"}}></div>
             <div style={{width: "180px", height: "180px"}}>
@@ -89,7 +149,8 @@ function TimerBox (props){
             {currentState === timerRunningState && <TimerRunningButtons pauseEvent={pauseTimer} restartEvent={restartTimer} />}
             {currentState === timerPausedState && <TimerPausedButtons startEvent={startTimer} restartEvent={restartTimer} />}
             {currentState === timerCompletedState && <TimerCompletedButton restartEvent={restartTimer} />}
-        </TimerContainer>
+        </TimerContainer>}
+        </div>
     );
 }
 

@@ -26,7 +26,3 @@ export const AddNewTimerContainer = styled.div`
     background-color: rgba(255,255,255,0.6);
     padding: 20px;
 `;
-
-export const ClosingButton = styled.div`
-    
-`;

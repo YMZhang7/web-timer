@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {AddNewTimerBoxContainer, AddNewTimerContainer, ClosingButton} from "./add_new_timer_box_elements";
+import {AddNewTimerBoxContainer, AddNewTimerContainer} from "./add_new_timer_box_elements";
 import {AiOutlinePlus, AiOutlineClose} from "react-icons/ai";
 import timers from "../../database";
 
@@ -34,15 +34,43 @@ function AddNewTimerBox (props) {
         });
     }
 
+    const setTime = (e) => {
+        let time = parseInt(newTimer.time);
+        if (e.target.name == "hour"){
+            time += 3600 * parseInt(e.target.value);
+        } else if (e.target.name == "min"){
+            time += 60 * parseInt(e.target.value);
+        } else if (e.target.name == "sec"){
+            time += parseInt(e.target.value);
+        }
+        setNewTimer((prevState) => {
+            prevState.time = time;
+            return prevState;
+        });
+    }
+
     const saveNewTimer = (e) => {
         e.preventDefault();
-        setMode(normalMode);
-        props.onSubmit(newTimer);
-        setNewTimer({
-            id: 0,
-            description: "",
-            time: 0,
-        })
+        if(newTimer.description == ''){
+            alert('The description cannot be empty');
+        } else {
+            setMode(normalMode);
+            props.onSubmit(newTimer);
+            setNewTimer({
+                id: 0,
+                description: "",
+                time: 0,
+            });
+        }
+    }
+
+    const generateOptions = (limit) => {
+        let hour = [];
+        for (let i = 0; i <= limit; i++){
+            hour.push(i);
+        }
+        let options = hour.map((h) => <option key={h} value={h}>{h}</option>);
+        return options;
     }
 
     return (
@@ -54,9 +82,7 @@ function AddNewTimerBox (props) {
             }
             {mode === edittingMode && 
                 <AddNewTimerContainer>
-                    <ClosingButton onClick={closeDown}>
-                        <AiOutlineClose/>
-                    </ClosingButton>
+                    <AiOutlineClose onClick={closeDown}/>
                     <form>
                         <p style={{fontSize: "15px",}}>Description:</p>
                         <input 
@@ -73,12 +99,69 @@ function AddNewTimerBox (props) {
                             }}
                         />
                         <p>Time:</p>
-                        <input 
-                            type="text"
-                            name="time"
-                            onChange={handleChange}
-                        />
-                        <button onClick={saveNewTimer}>SUBMIT</button>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "20%"
+                        }}>
+                            <label htmlFor="hour-select">hours </label>
+                            <select 
+                                name="hour" 
+                                id="hour-select"
+                                onChange={setTime}
+                                style={{
+                                    outline: "none", 
+                                    border: "1px grey solid", 
+                                    borderRadius: "5px", 
+                                    width: "60%", 
+                                    backgroundColor: "transparent"
+                                }}
+                            >
+                                {generateOptions(24)}
+                            </select>
+
+                            <label htmlFor="min-select">minutes </label>
+                            <select 
+                                name="min" 
+                                id="min-select"
+                                onChange={setTime}
+                                style={{
+                                    outline: "none", 
+                                    border: "1px grey solid", 
+                                    borderRadius: "5px", 
+                                    width: "60%", 
+                                    backgroundColor: "transparent"
+                                }}
+                            >
+                                {generateOptions(59)}
+                            </select>
+
+                            <label htmlFor="sec-select">seconds </label>
+                            <select 
+                                name="sec" 
+                                id="sec-select"
+                                onChange={setTime}
+                                style={{
+                                    outline: "none", 
+                                    border: "1px grey solid", 
+                                    borderRadius: "5px", 
+                                    width: "60%", 
+                                    backgroundColor: "transparent"
+                                }}
+                            >
+                                {generateOptions(59)}
+                            </select>
+                        </div>
+                        <div 
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                marginTop: "40px"
+                            }}
+                        >
+                            <button onClick={saveNewTimer}>SUBMIT</button>
+                        </div>
                     </form>
                 </AddNewTimerContainer>
             }
