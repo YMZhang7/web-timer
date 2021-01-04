@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {BackgroundContainer, BackgroundBlur, TimersGrid} from "../components/homepage_section/homepage_elements"
 import TimerBox from "../components/timer_box";
 import AddNewTimerBox from "../components/add_new_timer_box";
+import BottomBar from "../components/bottom_bar";
 import timers from "../database";
 
 function Home(){
@@ -60,6 +61,7 @@ function Home(){
                     {timerBoxes}
                     <AddNewTimerBox onSubmit={addTimer} newId={currId} ></AddNewTimerBox>
                 </TimersGrid>
+                <BottomBar />
             </BackgroundBlur>
         </BackgroundContainer>
     );

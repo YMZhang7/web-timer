@@ -33,7 +33,7 @@ function TimerBox (props){
             setTimeRemaining(prevTime => prevTime - 1);
             timeRun += 1;
             if (timeRun == totalTime) {
-                console.log('time is up');
+                alert(props.description + "'s timer is completed");
                 setTimer(prevState => clearInterval(prevState));
                 setTimerState(timerCompletedState);
             }
