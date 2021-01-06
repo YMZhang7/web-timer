@@ -4,6 +4,7 @@ import TimerBox from "../components/timer_box";
 import AddNewTimerBox from "../components/add_new_timer_box";
 import BottomBar from "../components/bottom_bar";
 import timers from "../database";
+import TimerEdittingModal from "../components/timer_editting_modal";
 
 function Home(){
 
@@ -11,6 +12,7 @@ function Home(){
         setAllTimers((prevState) => {
             for (let i = 0; i < prevState.length; i++){
                 console.log("id" + id);
+                // eslint-disable-next-line
                 if (prevState[i].id == id){
                     console.log("delete!");
                     prevState.splice(i, 1);
@@ -26,6 +28,7 @@ function Home(){
     const editTimer = (newTimer) => {
         setAllTimers((prevState) => {
             for (let i = 0; i < prevState.length; i++){
+                // eslint-disable-next-line
                 if (prevState[i].id == newTimer.id){
                     prevState[i] = newTimer;
                     break;
@@ -40,6 +43,12 @@ function Home(){
     const [currId, setCurrId] = useState(allTimers.length + 1);
     const [timerBoxes, setTimerBoxes] = useState(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} onEdit={editTimer} time={timer.time} description={timer.description}/>));
 
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => {
+        setShowModal(true); 
+        console.log('working');
+    }
     
 
     const addTimer = (newTimer) => {
@@ -61,7 +70,9 @@ function Home(){
                     {timerBoxes}
                     <AddNewTimerBox onSubmit={addTimer} newId={currId} ></AddNewTimerBox>
                 </TimersGrid>
-                <BottomBar />
+                <TimerEdittingModal showModal={showModal} handleClose={handleClose} handleShow={handleShow} />
+                
+                <BottomBar addNewTimer={handleShow} />
             </BackgroundBlur>
         </BackgroundContainer>
     );

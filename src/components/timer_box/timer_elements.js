@@ -19,6 +19,13 @@ export const TimerContainer = styled.div`
     }
 `;
 
+export const DropdownContainer = styled.div`
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 999;
+`;
+
 export const TimerInitialButton = (props) => {
     return (
         <TimerButtonContainer onClick={props.onClick}>

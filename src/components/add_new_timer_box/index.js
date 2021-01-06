@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {AddNewTimerBoxContainer, AddNewTimerContainer} from "./add_new_timer_box_elements";
 import {AiOutlinePlus, AiOutlineClose} from "react-icons/ai";
-import timers from "../../database";
 
 function AddNewTimerBox (props) {
     // ** == Mode == **
@@ -36,10 +35,13 @@ function AddNewTimerBox (props) {
 
     const setTime = (e) => {
         let time = parseInt(newTimer.time);
+        // eslint-disable-next-line
         if (e.target.name == "hour"){
             time += 3600 * parseInt(e.target.value);
+            // eslint-disable-next-line
         } else if (e.target.name == "min"){
             time += 60 * parseInt(e.target.value);
+            // eslint-disable-next-line
         } else if (e.target.name == "sec"){
             time += parseInt(e.target.value);
         }
@@ -51,6 +53,7 @@ function AddNewTimerBox (props) {
 
     const saveNewTimer = (e) => {
         e.preventDefault();
+        // eslint-disable-next-line
         if(newTimer.description == ''){
             alert('The description cannot be empty');
         } else {

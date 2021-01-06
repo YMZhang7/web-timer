@@ -1,20 +1,20 @@
 import React from "react"
 import {BottomBarButtonContainer, CustomTooltip} from "./bottom_bar_button_elemenets"
-import { OverlayTrigger } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function BottomBarButton(props){
     return(
-        <BottomBarButtonContainer>
+        <BottomBarButtonContainer onClick={props.onClick}>
             <OverlayTrigger
-                    placement="top"
-                    overlay={
-                        <CustomTooltip>
-                            {props.tooltipLabel}
-                        </CustomTooltip>
-                    }
-                >
-                    {props.icon}
-                </OverlayTrigger>
+                placement="top"
+                overlay={
+                    <Tooltip>
+                        {props.tooltipLabel}
+                    </Tooltip>
+                }
+            >
+                {props.icon}
+            </OverlayTrigger>
         </BottomBarButtonContainer>
     )
 }
