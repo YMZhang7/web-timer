@@ -17,10 +17,10 @@ export const BackgroundBlur = styled.div`
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     /* overflow-y: scroll; */
-    padding: 20px;
+    /* padding: 20px; */
     /* grid-template-columns: repeat(5, 250px);
    
     column-gap: 20px;
@@ -28,10 +28,23 @@ export const BackgroundBlur = styled.div`
 `;
 
 export const TimersGrid = styled.div`
-    height: 100%;
+    position: relative;
+    top: 30px;
+    height: calc(95% - 100px);
     display: grid;
-    grid-template-columns: repeat(5, 250px);
+    grid-template-columns: repeat(4, 250px);
     column-gap: 20px;
     row-gap: 20px;
     overflow-y: scroll;
+    overflow-x: scroll;
+
+    @media screen and (max-width: 1100px){
+        grid-template-columns: repeat(3, 250px);
+    }
+    @media screen and (max-width: 800px){
+        grid-template-columns: repeat(2, 250px);
+    }
+    @media screen and (max-width: 520px){
+        grid-template-columns: repeat(1, 250px);
+    }
 `;

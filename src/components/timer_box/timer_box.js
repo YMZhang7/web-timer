@@ -2,8 +2,7 @@ import React from "react"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import {TimerContainer, TimerInitialButton, TimerRunningButtons, TimerPausedButtons, TimerCompletedButton, DropdownContainer} from "./timer_elements";
-import { AiOutlineMore, AiFillDelete, AiFillEdit} from "react-icons/ai";
-import 'react-circular-progressbar/dist/styles.css';
+import { AiFillDelete, AiFillEdit} from "react-icons/ai";
 
 
 
@@ -19,6 +18,8 @@ function TimerBoxComponent(props){
                 return (<TimerPausedButtons startEvent={props.startTimer} restartEvent={props.restartTimer} />);
             case props.timerCompletedState:
                 return (<TimerCompletedButton restartEvent={props.restartTimer} />);
+            default:
+                return <div></div>;
         }
     }
 
@@ -34,7 +35,6 @@ function TimerBoxComponent(props){
                             fontSize: "20px",
                             padding: "5px"
                         }}>
-                        {/* <AiOutlineMore /> */}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item  as="button" onClick={props.deleteTimer} style={{color: 'red'}}>
@@ -63,7 +63,6 @@ function TimerBoxComponent(props){
                         pathColor: "rgb(185,170,199)",
                         textColor: 'rgb(112,112,112)',
                         trailColor: 'transparent',
-                        backgroundColor: 'red',
                     })}
                 />
             </div>

@@ -28,7 +28,7 @@ function TimerEdittingModalComponent(props){
                     <input 
                         type="text" 
                         name="description"
-                        // onChange={handleChange}
+                        onChange={props.handleChange}
                         style={{
                             width: "100%",
                             height: "30px",
@@ -46,7 +46,7 @@ function TimerEdittingModalComponent(props){
                             <select 
                                 name="hour" 
                                 id="hour-select"
-                                // onChange={setTime}
+                                onChange={props.setTime}
                                 style={{
                                     outline: "none", 
                                     border: "1px grey solid", 
@@ -63,7 +63,7 @@ function TimerEdittingModalComponent(props){
                             <select 
                                 name="min" 
                                 id="min-select"
-                                // onChange={setTime}
+                                onChange={props.setTime}
                                 style={{
                                     outline: "none", 
                                     border: "1px grey solid", 
@@ -80,7 +80,7 @@ function TimerEdittingModalComponent(props){
                             <select 
                                 name="sec" 
                                 id="sec-select"
-                                // onChange={setTime}
+                                onChange={props.setTime}
                                 style={{
                                     outline: "none", 
                                     border: "1px grey solid", 

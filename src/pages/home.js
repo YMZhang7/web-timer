@@ -54,7 +54,7 @@ function Home(){
     const addTimer = (newTimer) => {
         setAllTimers((prevState) => {
             prevState.push(newTimer);
-            console.log("id: "+ newTimer.id);
+            console.log(newTimer);
             return prevState;
         });
         setTimerBoxes(allTimers.map((timer) => <TimerBox key={timer.id} id={timer.id} onDelete={deleteTimer} onEdit={editTimer} time={timer.time} description={timer.description}/>));
@@ -68,10 +68,9 @@ function Home(){
             <BackgroundBlur>
                 <TimersGrid>
                     {timerBoxes}
-                    <AddNewTimerBox onSubmit={addTimer} newId={currId} ></AddNewTimerBox>
+                    {/* <AddNewTimerBox onSubmit={addTimer} newId={currId} /> */}
                 </TimersGrid>
-                <TimerEdittingModal showModal={showModal} handleClose={handleClose} handleShow={handleShow} />
-                
+                <TimerEdittingModal showModal={showModal} handleClose={handleClose} handleShow={handleShow} onSubmit={addTimer} newId={currId}/>
                 <BottomBar addNewTimer={handleShow} />
             </BackgroundBlur>
         </BackgroundContainer>
