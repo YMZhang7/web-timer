@@ -7,7 +7,6 @@ import { AiFillDelete, AiFillEdit} from "react-icons/ai";
 
 
 function TimerBoxComponent(props){
-
     const getButtons = () => {
         switch(props.currentState){
             case props.timerInitialState:
@@ -51,11 +50,12 @@ function TimerBoxComponent(props){
             
             <p>{props.description}</p>
             <div style={{height: "20px"}}></div>
-            <div style={{width: "180px", height: "180px"}}>
+            <div style={{width: "180px", height: "180px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                 <CircularProgressbar 
                     value={parseInt(props.timeRemaining)/parseInt(props.totalTime) * 100} 
-                    text={props.getTime()}
+                    // text={props.getTime()} WHY NOT WORKING????
                     strokeWidth="10"
+                    position="absolute"
                     styles={buildStyles({
                         strokeLinecap: 'butt',
                         textSize: '15px',
@@ -65,6 +65,12 @@ function TimerBoxComponent(props){
                         trailColor: 'transparent',
                     })}
                 />
+                <p style={{
+                    position: 'absolute', 
+                    fontSize: '25px', 
+                    color: 'rgb(112,112,112)', 
+                    paddingTop: '10px'
+                }}>{props.getTime()}</p>
             </div>
             <div style={{height: "40px"}}></div>
             {getButtons()}

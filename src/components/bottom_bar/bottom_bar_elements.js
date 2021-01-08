@@ -38,7 +38,7 @@ export const UserHeadContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 50px;
+    margin-right: 20px;
 `
 
 

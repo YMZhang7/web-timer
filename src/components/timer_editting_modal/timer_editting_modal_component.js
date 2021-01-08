@@ -105,12 +105,12 @@ function TimerEdittingModalComponent(props){
                 </form>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={props.handleClose}>
-                Close
-            </Button>
-            <Button variant="primary" onClick={props.saveButtonPressed}>
-                Save Changes
-            </Button>
+                <Button variant="secondary" onClick={props.handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={props.saveButtonPressed}>
+                    Save Changes
+                </Button>
             </Modal.Footer>
         </Modal>
     )

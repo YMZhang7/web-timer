@@ -12,13 +12,13 @@ function BottomBar (props) {
                 <UserHeadContainer>
                     <AiOutlineUser size="40px" />
                 </UserHeadContainer>
-                <p style={{paddingTop: '7px'}}>Mona</p>
+                <p style={{paddingTop: '13px'}}>Mona</p>
             </ButtonsContainer>
             
 
             <ButtonsContainer>
-                <BottomBarButton icon={<AiOutlineClockCircle />} tooltipLabel="Add new timer" onClick={props.addNewTimer} refe={useRef()}/>
-                <BottomBarButton icon={<AiOutlineFileImage />} tooltipLabel="Change the background" />
+                <BottomBarButton icon={<AiOutlineClockCircle />} tooltipLabel="Add new timer" onClick={props.addNewTimer} />
+                <BottomBarButton icon={<AiOutlineFileImage />} tooltipLabel="Change the background" onClick={props.changeBackground} />
                 <BottomBarButton icon={<AiFillFileAdd />} tooltipLabel="Add a memo" />
             </ButtonsContainer>
         </BottomBarContainer>
