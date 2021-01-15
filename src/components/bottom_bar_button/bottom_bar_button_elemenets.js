@@ -16,6 +16,9 @@ export const BottomBarButtonContainer = styled.button`
     font-size: 30px;
     outline: none;
     border: none;
+    &:focus{
+        outline: none;
+    }
     &:hover{
         background-color: rgb(255,255,255);
     }

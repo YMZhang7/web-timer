@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import AddNewTimerBox from "../add_new_timer_box";
 import TimerBoxComponent from "./timer_box"
 
 function TimerBox (props){
@@ -15,9 +14,10 @@ function TimerBox (props){
     const [timeRemaining, setTimeRemaining] = useState(parseInt(totalTime));
     const [currentState, setTimerState] = useState(timerInitialState);
     const [timer, setTimer] = useState(0);
-    const [isEditting, setIsEditting] = useState(false);
     // == End of React State Management ===
-
+    React.useEffect(() => {
+        setTimeRemaining(totalTime);
+    }, [totalTime])
 
     let timeRun = 0;
     const startTimer = () => {
@@ -68,31 +68,27 @@ function TimerBox (props){
     }
 
     const editTimer = () => {
-        
+        props.showEditModal(props.id);
+        console.log('edit timer')
     }
 
     return (
-        <div>
-        { isEditting ? 
-            <AddNewTimerBox onSubmit={editTimer} newId={props.id} /> : 
-            <TimerBoxComponent 
-                description={props.description}
-                deleteTimer={deleteTimer} 
-                setIsEditting={setIsEditting}
-                currentState={currentState}
-                timeRemaining={timeRemaining}
-                totalTime={totalTime}
-                getTime={getTime}
-                timerInitialState={timerInitialState}
-                startTimer={startTimer}
-                timerRunningState={timerRunningState}
-                pauseTimer={pauseTimer}
-                restartTimer={restartTimer}
-                timerPausedState={timerPausedState}
-                timerCompletedState={timerCompletedState}
-            />
-        }
-        </div>
+        <TimerBoxComponent 
+            description={props.description}
+            deleteTimer={deleteTimer} 
+            setIsEditting={editTimer}
+            currentState={currentState}
+            timeRemaining={timeRemaining}
+            totalTime={totalTime}
+            getTime={getTime}
+            timerInitialState={timerInitialState}
+            startTimer={startTimer}
+            timerRunningState={timerRunningState}
+            pauseTimer={pauseTimer}
+            restartTimer={restartTimer}
+            timerPausedState={timerPausedState}
+            timerCompletedState={timerCompletedState}
+        />
     );
 }
 

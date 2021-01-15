@@ -1,50 +1,57 @@
-import {React, useState} from "react"
+import {React, useState, useEffect} from "react"
 import TimerEdittingModalComponent from "./timer_editting_modal_component"
 
 function TimerEdittingModal (props){
     
-    const [newTimer, setNewTimer] = useState({
-        id: props.newId,
-        description: "",
-        time: 0,
-    });
+    const [newTimer, setNewTimer] = useState({});
+    
+    useEffect(() => {
+        setNewTimer(props.timer == null ? 
+            {
+                id: props.newId,
+                description: "",
+                time: 0,
+            } : 
+            {
+                id: props.timer.id,
+                description: props.timer.description,
+                time: props.timer.time
+            })
+    }, props.timer == null ? [] : [props.timer])
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setNewTimer((prevState) => {
-            prevState[name] = value;
-            return prevState;
-        });
+        let timer = Object.create(newTimer);
+        timer[name] = value;
+        setNewTimer(timer)
     }
 
     const setTime = (e) => {
         let time = parseInt(newTimer.time);
         // eslint-disable-next-line
         if (e.target.name == "hour"){
-            time += 3600 * parseInt(e.target.value);
+            let prevHour = Math.floor(newTimer.time / 3600);
+            time = time - prevHour * 3600 + 3600 * parseInt(e.target.value);
             // eslint-disable-next-line
         } else if (e.target.name == "min"){
-            time += 60 * parseInt(e.target.value);
+            let prevMin = Math.floor(newTimer.time % 3600 / 60);
+            time = time - prevMin * 60 + 60 * parseInt(e.target.value);
             // eslint-disable-next-line
         } else if (e.target.name == "sec"){
-            time += parseInt(e.target.value);
+            let prevSec = newTimer % 3600 % 60;
+            time = time - prevSec + parseInt(e.target.value);
         }
-        setNewTimer((prevState) => {
-            prevState.time = time;
-            return prevState;
-        });
+        let timer = Object.create(newTimer);
+        timer.time = time;
+        setNewTimer(timer);
     }
 
     const saveButtonPressed = (e) => {
         e.preventDefault();
-        // eslint-disable-next-line
         if(newTimer.description == ''){
             alert('The description cannot be empty');
         } else {
-            // setMode(normalMode);
-            console.log(props.newId)
-            newTimer.id = props.newId;
-            console.log(newTimer)
+            // newTimer.id = props.newId;
             props.onSubmit(newTimer);
             setNewTimer({
                 id: 0,
@@ -62,6 +69,7 @@ function TimerEdittingModal (props){
             saveButtonPressed={saveButtonPressed}
             setTime={setTime}
             handleChange={handleChange}
+            timer={newTimer}
         />
     )
     

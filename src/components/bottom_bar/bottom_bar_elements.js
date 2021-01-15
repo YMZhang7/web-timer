@@ -18,6 +18,21 @@ export const BottomBarContainer = styled.div`
     }
 `
 
+export const UserContainer = styled.div`
+    width: 140px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 50px;
+    cursor: pointer;
+    &:hover{
+        background: white;
+        box-shadow: 5px 5px 8px rgba(0,0,0,0.2);
+    }
+`
+
 export const ButtonsContainer = styled.div`
     position: relative;
     display: flex;

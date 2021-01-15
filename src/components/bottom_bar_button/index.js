@@ -5,6 +5,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 function BottomBarButton(props){
     return(
         <OverlayTrigger
+            // trigger="hover"
             placement="top"
             overlay={
                 <Tooltip id="placement">

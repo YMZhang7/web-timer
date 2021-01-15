@@ -1,6 +1,7 @@
 import React from "react"
 import {OptionContainer} from "./timer_editting_modal_elements"
 import {Modal, Button} from "react-bootstrap";
+// import timers from "../../database";
 
 
 function TimerEdittingModalComponent(props){
@@ -13,6 +14,8 @@ function TimerEdittingModalComponent(props){
         return options;
     }
 
+    React.useEffect(() => console.log(props.timer), [props.timer])
+
     return (
         <Modal 
             show={props.showModal} 
@@ -20,7 +23,7 @@ function TimerEdittingModalComponent(props){
             centered
         >
             <Modal.Header closeButton>
-            <Modal.Title>New Timer</Modal.Title>
+            <Modal.Title>{props.timer == null ? 'New Timer' : 'Edit Timer'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
@@ -37,6 +40,7 @@ function TimerEdittingModalComponent(props){
                             borderRadius: "10px",
                             backgroundColor: "transparent"
                         }}
+                        value={props.timer.description}
                     />
                     <div style={{height: '20px'}}></div>
                     <label style={{fontSize: "18px",}}>Time:</label>
@@ -54,6 +58,7 @@ function TimerEdittingModalComponent(props){
                                     width: "60%", 
                                     backgroundColor: "transparent"
                                 }}
+                                value={Math.floor(props.timer.time / 3600)}
                             >
                                 {generateOptions(24)}
                             </select>
@@ -71,6 +76,7 @@ function TimerEdittingModalComponent(props){
                                     width: "60%", 
                                     backgroundColor: "transparent"
                                 }}
+                                value={Math.floor(props.timer.time % 3600 / 60)}
                             >
                                 {generateOptions(59)}
                             </select>
@@ -88,6 +94,7 @@ function TimerEdittingModalComponent(props){
                                     width: "60%", 
                                     backgroundColor: "transparent"
                                 }}
+                                value={props.timer.time % 3600 % 60}
                             >
                                 {generateOptions(59)}
                             </select>

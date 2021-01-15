@@ -1,19 +1,39 @@
-import React from "react"
-import {BottomBarContainer, UserHeadContainer, ButtonsContainer} from "./bottom_bar_elements"
+import {React, useState, useEffect} from "react"
+import {BottomBarContainer, UserHeadContainer, ButtonsContainer, UserContainer} from "./bottom_bar_elements"
 import BottomBarButton from "../bottom_bar_button"
 import {AiOutlineClockCircle, AiOutlineFileImage, AiFillFileAdd, AiOutlineUser} from "react-icons/ai";
-// import { Modal, Button } from "react-bootstrap";
-import {useRef} from "react";
+import firebase from 'firebase';
 
 function BottomBar (props) {
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log('logged in')
+                props.userSignin({
+                    name: user.displayName,
+                    email: user.email,
+                    isLoggedIn: true,
+                })
+            } else {
+                console.log('logged out')
+                props.userSignin({
+                    name: 'Sign in',
+                    email: '',
+                    isLoggedIn: false,
+                })
+            }
+          });
+    }, [])
+    
+
     return (
         <BottomBarContainer>
-            <ButtonsContainer>
-                <UserHeadContainer>
+            <UserContainer onClick={props.changeUserStatus}>
+                <UserHeadContainer style={{background: 'lightgrey'}}>
                     <AiOutlineUser size="40px" />
                 </UserHeadContainer>
-                <p style={{paddingTop: '13px'}}>Mona</p>
-            </ButtonsContainer>
+                <p style={{paddingTop: '13px'}}>{props.user.name}</p>
+            </UserContainer>
             
 
             <ButtonsContainer>
